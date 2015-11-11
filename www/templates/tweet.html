@@ -1,0 +1,13 @@
+<ion-view view-title="Tweet">
+  <ion-content>
+    <ion-list>
+        <div class="item item-input-inset">
+            <label class="item-input-wrapper">
+                <input type="text" placeholder="Que deseas buscar" ng-model="tweet.txt">
+            </label>
+            <button class="button button-small icon ion-search" ng-click="tweet.search(tweet.txt)">
+            </button>
+        </div>
+
+  </ion-content>
+</ion-view>
