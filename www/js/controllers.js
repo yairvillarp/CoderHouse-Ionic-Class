@@ -32,19 +32,12 @@ angular.module('starter.controllers', [])
   $scope.imeisearch = {
     txt: '',
     search: function(txt){
-      setHeader.common['X-Mashape-Key'] = '6UJKHg3Qm2mshLOXXvTJEdNC8etNp1KzrikjsnfQTjNsOhC4Ht';
-      setHeader.common['Content-Type'] = 'application/x-www-form-urlencoded';
-      setHeader.common['Accept'] = 'application/json';
+      //setHeader.common['X-Mashape-Key'] = '7NfzZwJUfWmshSqlnCLQVUCKC7eJp1aU9NBjsnOSodvIzBijSI';
+      //setHeader.common['Content-Type'] = 'application/x-www-form-urlencoded';
+      //setHeader.common['Accept'] = 'application/json';
       crudService({
-        method: 'POST',
-        url: url.getUrl()+'/checkimei',
-        transformRequest: function(obj) {
-            var str = [];
-            for(var p in obj)
-            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-            return str.join("&");
-        },
-        data: {imei: txt}
+        method: 'GET',
+        url: url.getUrl()+'/sites/MLA/search?category='+txt,
       }).success(function (resp) {
         console.log(resp);
       });

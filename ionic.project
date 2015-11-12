@@ -4,7 +4,7 @@
   "proxies": [
       {
         "path": "/api",
-        "proxyUrl": "https://ismaelc-imei-info.p.mashape.com/"
+        "proxyUrl": "https://api.mercadolibre.com"
       }
   ]
 }
