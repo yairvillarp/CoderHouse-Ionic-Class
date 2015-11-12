@@ -4,7 +4,7 @@
   "proxies": [
       {
         "path": "/api",
-        "proxyUrl": "http://auction2me.local/"
+        "proxyUrl": "https://ismaelc-imei-info.p.mashape.com/"
       }
   ]
 }

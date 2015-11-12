@@ -1,17 +1,16 @@
 angular.module('callsServices', ['ngResource'])
 .factory('url', function(){
-  var api = '/api';
   return {
     getUrl: function() {
-      return api
+      var api = '/api';
+      return api;
     }
   }
 })
 .factory('setHeader', function($http){
   return $http.defaults.headers;
 })
-.factory('crudService', function ($resource, url) {
-    var urlString = url.getUrl()
-    return $resource(urlString);
+.factory('crudService', function ($http, url) {
+    return $http;
 })
 ;

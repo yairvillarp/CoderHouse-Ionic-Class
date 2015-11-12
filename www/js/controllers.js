@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, crudService, setHeader) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, crudService, setHeader, url) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -29,15 +29,28 @@ angular.module('starter.controllers', [])
     $scope.modal.show();
   };
 
-  $scope.tweet = {
-    txt: "",
+  $scope.imeisearch = {
+    txt: '',
     search: function(txt){
-      setHeader.common['Authorize'] = 'Bearer 9uj87h8902j08h23847h2h8w6ter8734g8r';
-      crudService.save({'blah':txt}, function(resp) {
-        console.log(resp)
-      })
+      setHeader.common['X-Mashape-Key'] = '6UJKHg3Qm2mshLOXXvTJEdNC8etNp1KzrikjsnfQTjNsOhC4Ht';
+      setHeader.common['Content-Type'] = 'application/x-www-form-urlencoded';
+      setHeader.common['Accept'] = 'application/json';
+      crudService({
+        method: 'POST',
+        url: url.getUrl()+'/checkimei',
+        transformRequest: function(obj) {
+            var str = [];
+            for(var p in obj)
+            str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
+            return str.join("&");
+        },
+        data: {imei: txt}
+      }).success(function (resp) {
+        console.log(resp);
+      });
     }
   };
+
   $scope.showTweet = false;
   $scope.showSubmenu = function(){
     $scope.showTweet = ($scope.showTweet) ? false : true;
