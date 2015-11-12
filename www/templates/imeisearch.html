@@ -8,6 +8,10 @@
             <button class="button button-small icon ion-search" ng-click="imeisearch.search(imeisearch.txt)">
             </button>
         </div>
+        <ion-item class="item-thumbnail-left" ng-repeat="item in imeisearch.productos">
+          <img ng-src="{{item.thumbnail}}">
+          <h2>{{::item.category_id }}</h2>
+        </ion-item>
 
   </ion-content>
 </ion-view>

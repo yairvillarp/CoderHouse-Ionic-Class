@@ -32,14 +32,14 @@ angular.module('starter.controllers', [])
   $scope.imeisearch = {
     txt: '',
     search: function(txt){
-      //setHeader.common['X-Mashape-Key'] = '7NfzZwJUfWmshSqlnCLQVUCKC7eJp1aU9NBjsnOSodvIzBijSI';
-      //setHeader.common['Content-Type'] = 'application/x-www-form-urlencoded';
-      //setHeader.common['Accept'] = 'application/json';
+      //setHeader.common['Key'] = '123';
       crudService({
         method: 'GET',
         url: url.getUrl()+'/sites/MLA/search?category='+txt,
       }).success(function (resp) {
-        console.log(resp);
+        console.log($scope.imeisearch);
+        $scope.imeisearch.productos = resp.results;
+        console.log(resp.results);
       });
     }
   };
