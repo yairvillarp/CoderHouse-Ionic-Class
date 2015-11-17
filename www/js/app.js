@@ -25,20 +25,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'callsServices'])
 .config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
 
-    .state('app', {
+  .state('app', {
     url: '/app',
     abstract: true,
     templateUrl: 'templates/menu.html',
     controller: 'AppCtrl'
-  })
-
-  .state('app.imeisearch', {
-    url: '/imeisearch',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/imeisearch.html'
-      }
-    }
   })
 
   .state('app.search', {
@@ -58,25 +49,25 @@ angular.module('starter', ['ionic', 'starter.controllers', 'callsServices'])
         }
       }
     })
-    .state('app.playlists', {
-      url: '/playlists',
+    .state('app.categories', {
+      url: '/categories',
       views: {
         'menuContent': {
-          templateUrl: 'templates/playlists.html',
-          controller: 'PlaylistsCtrl'
+          templateUrl: 'templates/categories.html',
+          controller: 'CategoriesCtrl'
         }
       }
     })
 
   .state('app.single', {
-    url: '/playlists/:playlistId',
+    url: '/categories/:categoryId/:name',
     views: {
       'menuContent': {
-        templateUrl: 'templates/playlist.html',
-        controller: 'PlaylistCtrl'
+        templateUrl: 'templates/category.html',
+        controller: 'CategoryCtrl'
       }
     }
   });
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/app/playlists');
+  $urlRouterProvider.otherwise('/app/categories');
 });

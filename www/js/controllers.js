@@ -32,14 +32,14 @@ angular.module('starter.controllers', [])
   $scope.imeisearch = {
     txt: '',
     search: function(txt){
-      //setHeader.common['Key'] = '123';
+      //setHeader.common['Key'] = 'value';
       crudService({
         method: 'GET',
-        url: url.getUrl()+'/sites/MLA/search?category='+txt,
+        unique: true,
+        url: url.getUrl()+'/sites/MLA/search?q='+txt+'&category=MLA1430',
       }).success(function (resp) {
-        console.log($scope.imeisearch);
+        console.log(resp.results[0]);
         $scope.imeisearch.productos = resp.results;
-        console.log(resp.results);
       });
     }
   };
@@ -61,16 +61,35 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('PlaylistsCtrl', function($scope) {
-  $scope.playlists = [
-    { title: 'Reggae', id: 1 },
-    { title: 'Chill', id: 2 },
-    { title: 'Dubstep', id: 3 },
-    { title: 'Indie', id: 4 },
-    { title: 'Rap', id: 5 },
-    { title: 'Cowbell', id: 6 }
-  ];
+.controller('CategoriesCtrl', function($scope, crudService, setHeader, url) {
+  crudService({
+    method: 'GET',
+    unique: true,
+    url: url.getUrl()+'/sites/MLA/categories',
+  }).success(function (resp) {
+    $scope.playlists = resp;
+  });
 })
 
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+.controller('CategoryCtrl', function($scope, $stateParams, crudService, setHeader, url) {
+  $scope.cat = $stateParams.name;
+  $scope.txt = '';
+  $scope.search = function(txt){
+    //setHeader.common['Key'] = 'value';
+    crudService({
+      method: 'GET',
+      unique: true,
+      url: url.getUrl()+'/sites/MLA/search?q='+txt+'&category='+$stateParams.categoryId,
+    }).success(function (resp) {
+      $scope.products = resp.results;
+    });
+  }
+
+  crudService({
+    method: 'GET',
+    unique: true,
+    url: url.getUrl()+'/sites/MLA/search?category='+$stateParams.categoryId,
+  }).success(function (resp) {
+    $scope.products = resp.results;
+  });
 });

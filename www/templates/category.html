@@ -1,15 +1,15 @@
-<ion-view view-title="imeisearch">
+<ion-view view-title="{{cat}}">
   <ion-content>
     <ion-list>
         <div class="item item-input-inset">
             <label class="item-input-wrapper">
-                <input type="text" placeholder="Que deseas buscar" ng-model="imeisearch.txt">
+                <input type="text" placeholder="Que deseas buscar" ng-model="txt">
             </label>
-            <button class="button button-small icon ion-search" ng-click="imeisearch.search(imeisearch.txt)">
+            <button class="button button-small icon ion-search" ng-click="search(txt)">
             </button>
         </div>
         <div ng-model="imeisearch.result"></div>
-        <ion-item class="item-thumbnail-left" ng-repeat="item in imeisearch.productos">
+        <ion-item class="item-thumbnail-left" ng-repeat="item in products">
           <img ng-src="{{item.thumbnail}}">
           <h2>{{::item.title | limitTo: 25 }}</h2>
           <p>Cantidad: {{::item.available_quantity }}</p>

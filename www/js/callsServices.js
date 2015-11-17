@@ -10,7 +10,7 @@ angular.module('callsServices', ['ngResource'])
 .factory('setHeader', function($http){
   return $http.defaults.headers;
 })
-.factory('crudService', function ($http, url) {
+.factory('crudService', function ($http) {
     return $http;
 })
 ;
