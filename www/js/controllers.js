@@ -1,6 +1,6 @@
 angular.module('starter.controllers', [])
 
-.controller('AppCtrl', function($scope, $ionicModal, $timeout, crudService, setHeader, url) {
+.controller('AppCtrl', function($scope, $ionicModal, $timeout, $ionicLoading, crudService, setHeader, url) {
 
   // With the new view caching in Ionic, Controllers are only called
   // when they are recreated or on app start, instead of every page change.
@@ -32,6 +32,9 @@ angular.module('starter.controllers', [])
   $scope.imeisearch = {
     txt: '',
     search: function(txt){
+      $ionicLoading.show({
+        template: 'Loading...'
+      });
       //setHeader.common['Key'] = 'value';
       crudService({
         method: 'GET',
@@ -40,7 +43,10 @@ angular.module('starter.controllers', [])
       }).success(function (resp) {
         console.log(resp.results[0]);
         $scope.imeisearch.productos = resp.results;
-      });
+        $ionicLoading.hide();
+      }).error(function(resp, status, headers, config){
+        console.log(status);
+    });
     }
   };
 
@@ -61,17 +67,22 @@ angular.module('starter.controllers', [])
   };
 })
 
-.controller('CategoriesCtrl', function($scope, crudService, setHeader, url) {
+.controller('CategoriesCtrl', function($scope, $ionicLoading, crudService, setHeader, url) {
+  $ionicLoading.show({
+    template: 'Loading...'
+  });
+
   crudService({
     method: 'GET',
     unique: true,
     url: url.getUrl()+'/sites/MLA/categories',
   }).success(function (resp) {
     $scope.playlists = resp;
+    $ionicLoading.hide();
   });
 })
 
-.controller('CategoryCtrl', function($scope, $stateParams, crudService, setHeader, url) {
+.controller('CategoryCtrl', function($scope, $ionicLoading, $stateParams, crudService, setHeader, url) {
   $scope.cat = $stateParams.name;
   $scope.txt = '';
   $scope.search = function(txt){
@@ -84,12 +95,15 @@ angular.module('starter.controllers', [])
       $scope.products = resp.results;
     });
   }
-
+  $ionicLoading.show({
+    template: 'Loading...'
+  });
   crudService({
     method: 'GET',
     unique: true,
     url: url.getUrl()+'/sites/MLA/search?category='+$stateParams.categoryId,
   }).success(function (resp) {
     $scope.products = resp.results;
+    $ionicLoading.hide();
   });
 });
